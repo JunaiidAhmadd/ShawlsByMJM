@@ -9,14 +9,28 @@ const flash = require('connect-flash');
 // Load environment variables
 dotenv.config();
 
+// Set environment variables with fallbacks
+const NODE_ENV = process.env.NODE_ENV || 'production';
+const PORT = process.env.PORT || 10000;
+const SESSION_SECRET = process.env.SESSION_SECRET || 'pakistani_shawls_default_secret';
+
+// Show environment info
+console.log(`Node environment: ${NODE_ENV}`);
+console.log(`Server running in ${NODE_ENV} mode on port ${PORT}`);
+
 // Connect to MongoDB
-connectDB();
+try {
+  connectDB();
+} catch (error) {
+  console.error('Failed to connect to MongoDB:', error);
+  // Continue running the app even if DB connection fails
+}
 
 // Initialize express app
 const app = express();
 
 // Middleware
-if (process.env.NODE_ENV === 'development') {
+if (NODE_ENV === 'development') {
   app.use(morgan('dev'));
 }
 
@@ -27,12 +41,19 @@ app.use(express.urlencoded({ extended: false }));
 // Session middleware
 app.use(
   session({
-    secret: process.env.SESSION_SECRET || 'pakistani_shawls_secret',
+    secret: SESSION_SECRET,
     resave: false,
     saveUninitialized: false,
     cookie: { maxAge: 1000 * 60 * 60 * 24 } // 1 day
   })
 );
+
+// Show warning if using memory store in production
+if (NODE_ENV === 'production') {
+  console.warn('Warning: connect.session() MemoryStore is not');
+  console.warn('designed for a production environment, as it will leak');
+  console.warn('memory, and will not scale past a single process.');
+}
 
 // Flash messages middleware
 app.use(flash());
@@ -64,14 +85,11 @@ app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).render('error', { 
     title: 'Error',
-    message: process.env.NODE_ENV === 'development' ? err.message : 'Something went wrong!' 
+    message: NODE_ENV === 'development' ? err.message : 'Something went wrong!' 
   });
 });
 
-// Set port
-const PORT = process.env.PORT || 5000;
-
 // Start server
 app.listen(PORT, () => {
-  console.log(`Server running in ${process.env.NODE_ENV} mode on port ${PORT}`);
+  console.log(`Server running on port ${PORT}`);
 }); 
