@@ -1,0 +1,38 @@
+<%- include('partials/header') %>
+
+<!-- Breadcrumb Section Begin -->
+<section class="breadcrumb-option">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="breadcrumb__text">
+                    <h4>Error</h4>
+                    <div class="breadcrumb__links">
+                        <a href="/">Home</a>
+                        <span>Error</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Breadcrumb Section End -->
+
+<!-- Error Section Begin -->
+<section class="error-section spad">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8 text-center">
+                <div class="error__content">
+                    <h2><i class="fa fa-exclamation-triangle text-danger"></i></h2>
+                    <h3>Oops! Something went wrong</h3>
+                    <p><%= message || 'We encountered an error while processing your request.' %></p>
+                    <a href="/" class="primary-btn">Back to home</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!-- Error Section End -->
+
+<%- include('partials/footer') %> 

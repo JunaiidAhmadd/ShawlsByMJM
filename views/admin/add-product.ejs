@@ -1,0 +1,729 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Add Product</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/elegant-icons.css">
+    <link rel="stylesheet" href="/css/nice-select.css">
+    
+    <style>
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            min-height: 100vh;
+            background-color: #212529;
+            color: #fff;
+            padding-top: 20px;
+        }
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+        .main-content {
+            padding: 20px;
+        }
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+            font-weight: 600;
+        }
+        .btn-primary {
+            background-color: #e53637;
+            border-color: #e53637;
+        }
+        .btn-primary:hover {
+            background-color: #d32f2f;
+            border-color: #d32f2f;
+        }
+        .color-option {
+            display: inline-block;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            margin-right: 10px;
+            cursor: pointer;
+            position: relative;
+        }
+        .color-option input {
+            position: absolute;
+            opacity: 0;
+            cursor: pointer;
+        }
+        .color-option input:checked + .checkmark {
+            display: block;
+        }
+        .color-option .checkmark {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            font-size: 14px;
+            text-shadow: 0 0 2px #000;
+        }
+        .breadcrumb-section {
+            background-color: #f5f5f5;
+            padding: 30px 0;
+            margin-bottom: 30px;
+        }
+        .preview-container {
+            border: 1px dashed #ddd;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+        }
+        .preview-container img {
+            max-width: 100%;
+            max-height: 200px;
+            margin-bottom: 10px;
+        }
+        .size-option {
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+        }
+        .size-option label {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            line-height: 40px;
+            text-align: center;
+            border: 1px solid #ddd;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .size-option input {
+            display: none;
+        }
+        .size-option input:checked + label {
+            background-color: #e53637;
+            color: white;
+            border-color: #e53637;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar">
+                <div class="text-center mb-4">
+                    <img src="/img/logo.png" alt="Male Fashion Logo" class="img-fluid" style="max-width: 150px;">
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">
+                            <i class="fa fa-dashboard"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/analytics">
+                            <i class="fa fa-line-chart"></i> Analytics
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/products">
+                            <i class="fa fa-shopping-bag"></i> Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/admin/products/add">
+                            <i class="fa fa-plus-circle"></i> Add Product
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="fa fa-globe"></i> View Site
+                        </a>
+                    </li>
+                    <li class="nav-item mt-5">
+                        <a class="nav-link" href="/logout">
+                            <i class="fa fa-sign-out"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-10 main-content">
+                <!-- Top Navbar -->
+                <nav class="navbar navbar-expand-lg navbar-light mb-4">
+                    <div class="container-fluid">
+                        <h4 class="mb-0">Add Product</h4>
+                        <div class="d-flex">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-user-circle"></i> Admin
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="/admin/profile">Profile</a>
+                                    <a class="dropdown-item" href="/admin/settings">Settings</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/logout">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                
+                <!-- Breadcrumb -->
+                <div class="breadcrumb-section">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="breadcrumb__text">
+                                    <h4>Product Management</h4>
+                                    <div class="breadcrumb__links">
+                                        <a href="/admin">Dashboard</a>
+                                        <a href="/admin/products">Products</a>
+                                        <span>Add New Product</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Page Content -->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Error Alert -->
+                            <% if (typeof error !== 'undefined' && error) { %>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <%= error %>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <% } %>
+                            
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Add New Product</h5>
+                                    <a href="/admin/products" class="btn btn-outline-secondary btn-sm">
+                                        <i class="fa fa-arrow-left"></i> Back to Products
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <form action="/admin/products/add" method="POST" enctype="multipart/form-data" id="add-product-form">
+                                        <div class="row">
+                                            <div class="col-lg-8">
+                                                <!-- Basic Information -->
+                                                <div class="card mb-4">
+                                                    <div class="card-header">
+                                                        <h6 class="mb-0">Basic Information</h6>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label for="productName">Product Name <span class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control" id="productName" name="name" value="<%= typeof formData !== 'undefined' && formData.name ? formData.name : '' %>" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="productDescription">Description <span class="text-danger">*</span></label>
+                                                            <textarea class="form-control" id="productDescription" name="description" rows="5" required><%= typeof formData !== 'undefined' && formData.description ? formData.description : '' %></textarea>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="productPrice">Price ($) <span class="text-danger">*</span></label>
+                                                                    <input type="number" class="form-control" id="productPrice" name="price" step="0.01" value="<%= typeof formData !== 'undefined' && formData.price ? formData.price : '' %>" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="productSalePrice">Sale Price ($)</label>
+                                                                    <input type="number" class="form-control" id="productSalePrice" name="salePrice" step="0.01" value="<%= typeof formData !== 'undefined' && formData.salePrice ? formData.salePrice : '' %>">
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="productRating">Rating (0-5)</label>
+                                                                    <input type="number" class="form-control" id="productRating" name="rating" step="0.1" min="0" max="5" value="<%= typeof formData !== 'undefined' && formData.rating ? formData.rating : '5' %>">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="productSKU">SKU <span class="text-danger">*</span></label>
+                                                                    <input type="text" class="form-control" id="productSKU" name="sku" value="<%= typeof formData !== 'undefined' && formData.sku ? formData.sku : '' %>" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="productQuantity">Stock Quantity <span class="text-danger">*</span></label>
+                                                                    <input type="number" class="form-control" id="productQuantity" name="stockQuantity" value="<%= typeof formData !== 'undefined' && formData.stockQuantity ? formData.stockQuantity : '0' %>" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-4">
+                                                                <div class="form-group">
+                                                                    <label for="productBrand">Brand</label>
+                                                                    <select class="form-control" id="productBrand" name="brand">
+                                                                        <option value="">Select Brand</option>
+                                                                        <option value="Louis Vuitton">Louis Vuitton</option>
+                                                                        <option value="Chanel">Chanel</option>
+                                                                        <option value="Hermes">Hermes</option>
+                                                                        <option value="Gucci">Gucci</option>
+                                                                        <option value="Other">Other</option>
+                                                                    </select>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Categories and Tags -->
+                                                <div class="card mb-4">
+                                                    <div class="card-header">
+                                                        <h6 class="mb-0">Categories and Tags</h6>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label for="productCategory">Category <span class="text-danger">*</span></label>
+                                                            <select class="form-control" id="productCategory" name="category" required>
+                                                                <option value="" disabled <%= typeof formData === 'undefined' || !formData.category ? 'selected' : '' %>>Select Category</option>
+                                                                <option value="Men">Men</option>
+                                                                <option value="Women">Women</option>
+                                                                <option value="Bags">Bags</option>
+                                                                <option value="Clothing">Clothing</option>
+                                                                <option value="Shoes">Shoes</option>
+                                                                <option value="Accessories">Accessories</option>
+                                                                <option value="Kids">Kids</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="productTags">Tags (comma separated)</label>
+                                                            <input type="text" class="form-control" id="productTags" name="tags" placeholder="e.g., summer, casual, trending" value="<%= typeof formData !== 'undefined' && formData.tags ? formData.tags : '' %>">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Colors and Sizes -->
+                                                <div class="card mb-4">
+                                                    <div class="card-header">
+                                                        <h6 class="mb-0">Colors and Sizes</h6>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label>Available Colors</label>
+                                                            <div class="d-flex flex-wrap mt-2">
+                                                                <div class="color-option" style="background-color: #000000;">
+                                                                    <input type="checkbox" name="colors[]" value="black">
+                                                                    <span class="checkmark"><i class="fa fa-check"></i></span>
+                                                                </div>
+                                                                <div class="color-option" style="background-color: #FFFFFF; border: 1px solid #ddd;">
+                                                                    <input type="checkbox" name="colors[]" value="white">
+                                                                    <span class="checkmark"><i class="fa fa-check"></i></span>
+                                                                </div>
+                                                                <div class="color-option" style="background-color: #e53637;">
+                                                                    <input type="checkbox" name="colors[]" value="red">
+                                                                    <span class="checkmark"><i class="fa fa-check"></i></span>
+                                                                </div>
+                                                                <div class="color-option" style="background-color: #0000FF;">
+                                                                    <input type="checkbox" name="colors[]" value="blue">
+                                                                    <span class="checkmark"><i class="fa fa-check"></i></span>
+                                                                </div>
+                                                                <div class="color-option" style="background-color: #00FF00;">
+                                                                    <input type="checkbox" name="colors[]" value="green">
+                                                                    <span class="checkmark"><i class="fa fa-check"></i></span>
+                                                                </div>
+                                                                <div class="color-option" style="background-color: #808080;">
+                                                                    <input type="checkbox" name="colors[]" value="grey">
+                                                                    <span class="checkmark"><i class="fa fa-check"></i></span>
+                                                                </div>
+                                                                <div class="color-option" style="background-color: #FFFF00;">
+                                                                    <input type="checkbox" name="colors[]" value="yellow">
+                                                                    <span class="checkmark"><i class="fa fa-check"></i></span>
+                                                                </div>
+                                                                <div class="color-option" style="background-color: #FFA500;">
+                                                                    <input type="checkbox" name="colors[]" value="orange">
+                                                                    <span class="checkmark"><i class="fa fa-check"></i></span>
+                                                                </div>
+                                                                <div class="color-option" style="background-color: #800080;">
+                                                                    <input type="checkbox" name="colors[]" value="purple">
+                                                                    <span class="checkmark"><i class="fa fa-check"></i></span>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group mt-4">
+                                                            <label>Available Sizes</label>
+                                                            <div class="d-flex flex-wrap mt-2">
+                                                                <div class="size-option">
+                                                                    <input type="checkbox" id="sizeXS" name="sizes[]" value="XS">
+                                                                    <label for="sizeXS">XS</label>
+                                                                </div>
+                                                                <div class="size-option">
+                                                                    <input type="checkbox" id="sizeS" name="sizes[]" value="S">
+                                                                    <label for="sizeS">S</label>
+                                                                </div>
+                                                                <div class="size-option">
+                                                                    <input type="checkbox" id="sizeM" name="sizes[]" value="M">
+                                                                    <label for="sizeM">M</label>
+                                                                </div>
+                                                                <div class="size-option">
+                                                                    <input type="checkbox" id="sizeL" name="sizes[]" value="L">
+                                                                    <label for="sizeL">L</label>
+                                                                </div>
+                                                                <div class="size-option">
+                                                                    <input type="checkbox" id="sizeXL" name="sizes[]" value="XL">
+                                                                    <label for="sizeXL">XL</label>
+                                                                </div>
+                                                                <div class="size-option">
+                                                                    <input type="checkbox" id="sizeXXL" name="sizes[]" value="XXL">
+                                                                    <label for="sizeXXL">XXL</label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-lg-4">
+                                                <!-- Product Status -->
+                                                <div class="card mb-4">
+                                                    <div class="card-header">
+                                                        <h6 class="mb-0">Product Status</h6>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label for="productStatus">Status</label>
+                                                            <select class="form-control" id="productStatus" name="status">
+                                                                <option value="active">Active</option>
+                                                                <option value="draft">Draft</option>
+                                                                <option value="outOfStock">Out of Stock</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Featured Product</label>
+                                                            <div class="custom-control custom-switch">
+                                                                <input type="checkbox" class="custom-control-input" id="isFeatured" name="isFeatured">
+                                                                <label class="custom-control-label" for="isFeatured">No</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="productLabel">Product Label</label>
+                                                            <select class="form-control" id="productLabel" name="label">
+                                                                <option value="">None</option>
+                                                                <option value="new">New</option>
+                                                                <option value="sale">Sale</option>
+                                                                <option value="hot">Hot</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Product Images -->
+                                                <div class="card mb-4">
+                                                    <div class="card-header">
+                                                        <h6 class="mb-0">Product Images</h6>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="preview-container" id="mainImagePreview">
+                                                            <img src="/img/product/no-image.jpg" alt="Preview" id="mainPreviewImg">
+                                                            <p class="text-muted small">Main product image preview</p>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="mainImage">Main Image <span class="text-danger">*</span></label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input" id="mainImage" name="mainImage" required>
+                                                                <label class="custom-file-label" for="mainImage">Choose file</label>
+                                                            </div>
+                                                        </div>
+                                                        <div class="form-group mt-3">
+                                                            <label for="galleryImages">Gallery Images (Optional)</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input" id="galleryImages" name="galleryImages" multiple>
+                                                                <label class="custom-file-label" for="galleryImages">Choose files</label>
+                                                            </div>
+                                                            <small class="form-text text-muted">You can select multiple images (up to 5)</small>
+                                                        </div>
+                                                        <div class="mt-3">
+                                                            <div id="gallery-preview" class="row">
+                                                                <!-- Gallery previews will be added here dynamically -->
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                
+                                                <!-- Price Filter Range -->
+                                                <div class="card mb-4">
+                                                    <div class="card-header">
+                                                        <h6 class="mb-0">Price Filter Range</h6>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label for="priceRange">Select Price Range for Filtering</label>
+                                                            <select class="form-control" id="priceRange" name="priceRange">
+                                                                <option value="0-50">$0.00 - $50.00</option>
+                                                                <option value="50-100">$50.00 - $100.00</option>
+                                                                <option value="100-150">$100.00 - $150.00</option>
+                                                                <option value="150-200">$150.00 - $200.00</option>
+                                                                <option value="200-250">$200.00 - $250.00</option>
+                                                                <option value="250+">$250.00+</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <!-- Product Preview -->
+                                        <div class="card mb-4">
+                                            <div class="card-header">
+                                                <h6 class="mb-0">Product Display Preview</h6>
+                                            </div>
+                                            <div class="card-body">
+                                                <div class="row">
+                                                    <div class="col-md-4">
+                                                        <div class="product__item">
+                                                            <div class="product__item__pic" style="background-image: url('/img/product/no-image.jpg'); height: 260px; background-size: cover; background-position: center;" id="previewItemPic">
+                                                                <span class="label" id="previewLabel" style="display: none;">New</span>
+                                                                <ul class="product__hover">
+                                                                    <li><a href="#"><img src="/img/icon/heart.png" alt=""></a></li>
+                                                                    <li><a href="#"><img src="/img/icon/compare.png" alt=""> <span>Compare</span></a></li>
+                                                                    <li><a href="#"><img src="/img/icon/search.png" alt=""></a></li>
+                                                                </ul>
+                                                            </div>
+                                                            <div class="product__item__text">
+                                                                <h6><a href="#" id="previewName">Product Name</a></h6>
+                                                                <a href="#" class="add-cart">+ Add To Cart</a>
+                                                                <div class="rating">
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                    <i class="fa fa-star"></i>
+                                                                </div>
+                                                                <h5 class="product__price" id="previewPrice">$0.00</h5>
+                                                                <h5 class="product__price" id="previewSalePrice" style="display: none;">$0.00 <span>$0.00</span></h5>
+                                                                <div class="product__color__select">
+                                                                    <label for="pc-1">
+                                                                        <input type="radio" id="pc-1">
+                                                                    </label>
+                                                                    <label class="active black" for="pc-2">
+                                                                        <input type="radio" id="pc-2">
+                                                                    </label>
+                                                                    <label class="grey" for="pc-3">
+                                                                        <input type="radio" id="pc-3">
+                                                                    </label>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-8">
+                                                        <p class="text-muted mb-4">This is a preview of how your product will appear in the shop. Enter product details in the form to see the preview update in real-time.</p>
+                                                        <div class="alert alert-info">
+                                                            <h6>Product Preview Tips</h6>
+                                                            <ul class="mb-0">
+                                                                <li>Add high-quality images for better display</li>
+                                                                <li>Keep product names concise and descriptive</li>
+                                                                <li>Set sale prices to show discount markers</li>
+                                                                <li>Select the appropriate label (New, Sale, Hot) to highlight products</li>
+                                                                <li>Choose multiple colors to give customers options</li>
+                                                            </ul>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-4">
+                                            <div class="col-12 text-center">
+                                                <button type="submit" class="btn btn-primary px-5">Add Product</button>
+                                                <a href="/admin/products" class="btn btn-secondary px-5 ml-2">Cancel</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="/js/jquery.nice-select.min.js"></script>
+    
+    <!-- Page-specific scripts -->
+    <script>
+        $(document).ready(function() {
+            // File input display filename
+            $(".custom-file-input").on("change", function() {
+                let fileName = $(this).val().split("\\").pop();
+                $(this).next(".custom-file-label").addClass("selected").html(fileName);
+                
+                // Image preview for main image
+                if (this.id === 'mainImage') {
+                    const file = this.files[0];
+                    if (file) {
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            $('#mainPreviewImg').attr('src', e.target.result);
+                            $('#previewItemPic').css('background-image', 'url(' + e.target.result + ')');
+                        }
+                        reader.readAsDataURL(file);
+                    }
+                }
+                
+                // Gallery images preview
+                if (this.id === 'galleryImages') {
+                    const files = this.files;
+                    $('#gallery-preview').empty();
+                    
+                    for (let i = 0; i < Math.min(files.length, 5); i++) {
+                        const file = files[i];
+                        const reader = new FileReader();
+                        
+                        reader.onload = function(e) {
+                            $('#gallery-preview').append(`
+                                <div class="col-4 mb-2">
+                                    <img src="${e.target.result}" class="img-thumbnail" style="height: 80px; object-fit: cover;">
+                                </div>
+                            `);
+                        }
+                        
+                        reader.readAsDataURL(file);
+                    }
+                }
+            });
+            
+            // Toggle featured label
+            $("#isFeatured").change(function() {
+                if($(this).is(":checked")) {
+                    $(this).next("label").text("Yes");
+                } else {
+                    $(this).next("label").text("No");
+                }
+            });
+            
+            // Live preview updates
+            $('#productName').on('input', function() {
+                $('#previewName').text($(this).val() || 'Product Name');
+            });
+            
+            $('#productPrice').on('input', function() {
+                updatePriceDisplay();
+            });
+            
+            $('#productSalePrice').on('input', function() {
+                updatePriceDisplay();
+            });
+            
+            $('#productLabel').on('change', function() {
+                const label = $(this).val();
+                if (label) {
+                    $('#previewLabel').text(label.charAt(0).toUpperCase() + label.slice(1));
+                    $('#previewLabel').show();
+                } else {
+                    $('#previewLabel').hide();
+                }
+            });
+            
+            function updatePriceDisplay() {
+                const price = parseFloat($('#productPrice').val()) || 0;
+                const salePrice = parseFloat($('#productSalePrice').val()) || 0;
+                
+                if (salePrice > 0 && salePrice < price) {
+                    $('#previewPrice').hide();
+                    $('#previewSalePrice').show();
+                    $('#previewSalePrice').html('$' + salePrice.toFixed(2) + ' <span>$' + price.toFixed(2) + '</span>');
+                    
+                    // Show sale label if no label is selected
+                    if (!$('#productLabel').val()) {
+                        $('#productLabel').val('sale');
+                        $('#previewLabel').text('Sale');
+                        $('#previewLabel').show();
+                    }
+                } else {
+                    $('#previewSalePrice').hide();
+                    $('#previewPrice').show();
+                    $('#previewPrice').text('$' + price.toFixed(2));
+                    
+                    // Hide sale label if it was auto-set
+                    if ($('#productLabel').val() === 'sale') {
+                        $('#productLabel').val('');
+                        $('#previewLabel').hide();
+                    }
+                }
+            }
+            
+            // Color selection preview
+            $('.color-option').on('click', function() {
+                const checkbox = $(this).find('input[type="checkbox"]');
+                checkbox.prop('checked', !checkbox.prop('checked'));
+            });
+            
+            // Form validation
+            $('#add-product-form').on('submit', function(e) {
+                let isValid = true;
+                let missingFields = [];
+                
+                // Clear previous validation errors
+                $(this).find('.is-invalid').removeClass('is-invalid');
+                
+                // Check required fields
+                $(this).find('[required]').each(function() {
+                    if ($(this).val() === '') {
+                        isValid = false;
+                        $(this).addClass('is-invalid');
+                        
+                        // Get the field label text
+                        let fieldName = $(this).closest('.form-group').find('label').text().replace('*', '').trim();
+                        missingFields.push(fieldName);
+                    }
+                });
+                
+                // Special handling for file inputs
+                if ($('#mainImage').get(0).files.length === 0) {
+                    $('#mainImage').addClass('is-invalid');
+                    isValid = false;
+                    missingFields.push('Main Image');
+                }
+                
+                if (!isValid) {
+                    e.preventDefault();
+                    let errorMessage = 'Please fill in all required fields: ' + missingFields.join(', ');
+                    alert(errorMessage);
+                    return false;
+                }
+                
+                return true;
+            });
+        });
+    </script>
+</body>
+</html> 

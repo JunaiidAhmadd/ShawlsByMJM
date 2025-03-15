@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Products</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    
+    <style>
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            min-height: 100vh;
+            background-color: #212529;
+            color: #fff;
+            padding-top: 20px;
+        }
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+        .main-content {
+            padding: 20px;
+        }
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+            font-weight: 600;
+        }
+        .btn-primary {
+            background-color: #e53637;
+            border-color: #e53637;
+        }
+        .btn-primary:hover {
+            background-color: #d32f2f;
+            border-color: #d32f2f;
+        }
+        .product-img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        .table th {
+            font-weight: 600;
+        }
+        .badge-active {
+            background-color: #28a745;
+        }
+        .badge-inactive {
+            background-color: #6c757d;
+        }
+        .badge-discontinued {
+            background-color: #dc3545;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar">
+                <div class="text-center mb-4">
+                    <img src="/img/logo.png" alt="Male Fashion Logo" class="img-fluid" style="max-width: 150px;">
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">
+                            <i class="fa fa-dashboard"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/analytics">
+                            <i class="fa fa-line-chart"></i> Analytics
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="/admin/products">
+                            <i class="fa fa-shopping-bag"></i> Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/products/add">
+                            <i class="fa fa-plus-circle"></i> Add Product
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="fa fa-globe"></i> View Site
+                        </a>
+                    </li>
+                    <li class="nav-item mt-5">
+                        <a class="nav-link" href="/logout">
+                            <i class="fa fa-sign-out"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-10 main-content">
+                <!-- Top Navbar -->
+                <nav class="navbar navbar-expand-lg navbar-light mb-4">
+                    <div class="container-fluid">
+                        <h4 class="mb-0">Products</h4>
+                        <div class="d-flex">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-user-circle"></i> Admin
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="/admin/profile">Profile</a>
+                                    <a class="dropdown-item" href="/admin/settings">Settings</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/logout">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                
+                <!-- Page Content -->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Product List</h5>
+                                    <a href="/admin/products/add" class="btn btn-primary btn-sm">
+                                        <i class="fa fa-plus"></i> Add New Product
+                                    </a>
+                                </div>
+                                <div class="card-body p-0">
+                                    <div class="table-responsive">
+                                        <table class="table table-hover">
+                                            <thead class="bg-light">
+                                                <tr>
+                                                    <th>Image</th>
+                                                    <th>Name</th>
+                                                    <th>Category</th>
+                                                    <th>Price</th>
+                                                    <th>Stock</th>
+                                                    <th>Featured</th>
+                                                    <th>Actions</th>
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <% if (products && products.length > 0) { %>
+                                                    <% products.forEach(product => { %>
+                                                        <tr>
+                                                            <td>
+                                                                <% if (product.images && product.images.length > 0) { %>
+                                                                    <img src="<%= product.images[0] %>" alt="<%= product.name || 'Women Winter and Summer Shawls' %>" class="img-thumbnail" style="width: 50px; height: 50px; object-fit: cover;">
+                                                                <% } else { %>
+                                                                    <div class="bg-light d-flex align-items-center justify-content-center" style="width: 50px; height: 50px;">
+                                                                        <i class="fa fa-image text-muted"></i>
+                                                                    </div>
+                                                                <% } %>
+                                                            </td>
+                                                            <td>
+                                                                <div class="font-weight-bold"><%= product.name || 'Women Winter and Summer Shawls' %></div>
+                                                                <small class="text-muted">SKU: <%= product.sku || "N/A" %></small>
+                                                            </td>
+                                                            <td><%= product.category %></td>
+                                                            <td>$<%= product.price.toFixed(2) %></td>
+                                                            <td>
+                                                                <% if (product.stockQuantity > 10) { %>
+                                                                    <span class="badge badge-success"><%= product.stockQuantity %></span>
+                                                                <% } else if (product.stockQuantity > 0) { %>
+                                                                    <span class="badge badge-warning"><%= product.stockQuantity %></span>
+                                                                <% } else { %>
+                                                                    <span class="badge badge-danger">Out of stock</span>
+                                                                <% } %>
+                                                            </td>
+                                                            <td>
+                                                                <% if (product.isFeatured) { %>
+                                                                    <span class="badge badge-primary">Featured</span>
+                                                                <% } else { %>
+                                                                    <span class="badge badge-light">No</span>
+                                                                <% } %>
+                                                            </td>
+                                                            <td>
+                                                                <div class="btn-group btn-group-sm">
+                                                                    <a href="/admin/products/edit/<%= product._id %>" class="btn btn-outline-primary">
+                                                                        <i class="fa fa-edit"></i>
+                                                                    </a>
+                                                                    <button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#deleteModal<%= product._id %>">
+                                                                        <i class="fa fa-trash"></i>
+                                                                    </button>
+                                                                </div>
+                                                                
+                                                                <!-- Delete Modal -->
+                                                                <div class="modal fade" id="deleteModal<%= product._id %>" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel<%= product._id %>" aria-hidden="true">
+                                                                    <div class="modal-dialog" role="document">
+                                                                        <div class="modal-content">
+                                                                            <div class="modal-header">
+                                                                                <h5 class="modal-title" id="deleteModalLabel<%= product._id %>">Confirm Delete</h5>
+                                                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                                    <span aria-hidden="true">&times;</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div class="modal-body">
+                                                                                Are you sure you want to delete "<%= product.name %>"? This action cannot be undone.
+                                                                            </div>
+                                                                            <div class="modal-footer">
+                                                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                                                                                <form action="/admin/products/delete/<%= product._id %>" method="POST" class="d-inline">
+                                                                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                                                                </form>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </td>
+                                                        </tr>
+                                                    <% }); %>
+                                                <% } else { %>
+                                                    <tr>
+                                                        <td colspan="7" class="text-center py-4">
+                                                            <div class="alert alert-info mb-0">
+                                                                No products found. <a href="/admin/products/add">Add your first product</a>.
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                <% } %>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+</body>
+</html> 

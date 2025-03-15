@@ -1,0 +1,834 @@
+/* Custom CSS to fix image display issues */
+
+/* Fix for product images in shop and product details */
+.product__item__pic.set-bg {
+    background-size: contain !important;
+    background-position: center !important;
+    background-repeat: no-repeat !important;
+    height: 200px;
+    margin-bottom: 0 !important;
+}
+
+/* Fix for product detail images */
+.product__details__pic__item img {
+    max-width: 100%;
+    max-height: 500px;
+    object-fit: contain;
+    margin: 0 auto;
+    display: block;
+}
+
+/* Fix for product thumbnails */
+.product__thumb__pic.set-bg {
+    background-size: contain !important;
+}
+
+/* Product name - Always visible with proper transition */
+.product__item__text h6 {
+    display: block !important;
+    visibility: visible !important;
+    opacity: 1 !important;
+    margin-top: 0 !important;
+    font-weight: bold !important;
+    min-height: 45px !important;
+    position: relative;
+}
+
+.product__item__text h6 a {
+    display: block !important;
+    color: #111111 !important;
+    font-weight: 600 !important;
+    text-transform: uppercase !important;
+    letter-spacing: 2px !important;
+    transition: all 0.3s ease !important;
+    margin-bottom: 10px;
+    position: relative;
+    z-index: 2;
+}
+
+/* Hide "Add to Cart" by default with transition */
+.product__item__text .add-cart {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    text-align: left;
+    z-index: 1;
+    background-color: #ffffff;
+    padding: 10px 0;
+    margin-top: 0 !important;
+    opacity: 0;
+    visibility: hidden;
+    transition: all 0.3s ease !important;
+}
+
+/* Show "Add to Cart" on hover and hide name */
+.product__item:hover .product__item__text .add-cart {
+    opacity: 1 !important;
+    visibility: visible !important;
+    z-index: 10;
+}
+
+.product__item:hover .product__item__text h6 a {
+    opacity: 0 !important; /* Hide the name on hover */
+    visibility: hidden !important;
+}
+
+/* Reduce spacing between components */
+.product__item__text {
+    padding-top: 15px !important;
+    text-align: left;
+    position: relative;
+}
+
+/* Fix entire product item card */
+.product__item {
+    margin-bottom: 35px;
+    position: relative;
+}
+
+/* Make product name clean and visible */
+.product__item__text h6 a {
+    color: #000 !important;
+    font-size: 14px !important;
+    display: inline-block !important;
+    background-color: transparent !important;
+    padding: 2px 5px !important;
+}
+
+/* Remove the debugging marker */
+.product__item__text h6 a::after {
+    content: "";
+    display: none;
+}
+
+/* Custom styles to improve hero text visibility */
+.hero__text {
+  background-color: rgba(0, 0, 0, 0.3);
+  padding: 20px;
+  border-radius: 5px;
+  max-width: 90%;
+  backdrop-filter: blur(2px);
+}
+
+/* Improve hero images display */
+.hero__items.set-bg {
+  background-position: center !important;
+  background-size: cover !important;
+  position: relative;
+}
+
+.hero__items.set-bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.1) 50%, rgba(0,0,0,0) 100%);
+}
+
+.hero__text h6 {
+  color: #ffffff !important;
+  text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.8) !important;
+  font-size: 16px !important;
+  font-weight: 700 !important;
+  letter-spacing: 2px !important;
+}
+
+.hero__text h2 {
+  color: #ffffff !important;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.8) !important;
+  font-size: 38px !important;
+  font-weight: 700 !important;
+  line-height: 1.2 !important;
+  margin-bottom: 15px !important;
+}
+
+.hero__text p {
+  color: #ffffff !important;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8) !important;
+  font-size: 15px !important;
+  line-height: 1.5 !important;
+  margin-bottom: 20px !important;
+}
+
+.hero__text .primary-btn {
+  background-color: #e53637 !important;
+  color: #ffffff !important;
+  border: none !important;
+  padding: 12px 30px !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3) !important;
+}
+
+.hero__text .primary-btn:hover {
+  background-color: #d32f2f !important;
+}
+
+/* Banner section image fixes */
+.banner.spad {
+  padding-top: 50px;
+}
+
+.banner__item {
+  margin-bottom: 30px;
+  background-color: #ffffff;
+  border-radius: 5px;
+  overflow: hidden;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+}
+
+.banner__item:hover {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+  transform: translateY(-5px);
+}
+
+.banner__item__pic {
+  height: 400px;
+  overflow: hidden;
+  display: block;
+  margin: 0;
+  padding: 0;
+  position: relative;
+}
+
+/* Make sure the images are properly centered */
+.banner__item__pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transition: transform 0.5s ease;
+}
+
+.banner__item:hover .banner__item__pic img {
+  transform: scale(1.05);
+}
+
+.banner__item__text {
+  padding: 20px;
+  text-align: center;
+  background-color: #ffffff;
+}
+
+.banner__item__text h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+  font-weight: 600;
+  color: #111111;
+  line-height: 1.3;
+}
+
+.banner__item__text .shop-now-btn {
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111111;
+  background-color: transparent;
+  border: none;
+  padding: 0;
+  margin-top: 5px;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  position: relative;
+}
+
+.banner__item__text .shop-now-btn:after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: -3px;
+  width: 0;
+  height: 2px;
+  background-color: #e53637;
+  transition: all 0.3s ease;
+  transform: translateX(-50%);
+}
+
+.banner__item__text .shop-now-btn:hover {
+  color: #e53637;
+}
+
+.banner__item__text .shop-now-btn:hover:after {
+  width: 100%;
+}
+
+/* Make all banners responsive on mobile */
+@media (max-width: 991px) {
+  .banner__item__pic {
+    height: 250px;
+  }
+  
+  .banner__item__text h2 {
+    font-size: 18px;
+  }
+}
+
+/* Instagram section fixes for laptop view */
+.instagram__pic {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-gap: 10px;
+  height: 450px;
+}
+
+.instagram__pic__item {
+  position: relative;
+  height: 220px;
+  overflow: hidden;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.instagram__pic__item:hover {
+  transform: scale(1.03);
+}
+
+.instagram__text {
+  padding: 30px 20px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.instagram__text h2 {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 20px;
+  color: #111111;
+}
+
+.instagram__text p {
+  margin-bottom: 30px;
+  color: #666666;
+  line-height: 1.7;
+}
+
+.instagram__text h3 {
+  font-size: 22px;
+  font-weight: 700;
+  color: #e53637;
+}
+
+@media (max-width: 767px) {
+  .instagram__pic {
+    grid-template-columns: repeat(2, 1fr);
+  }
+  
+  .instagram__pic__item {
+    height: 150px;
+  }
+}
+
+/* Blog section fixes */
+.blog__item__pic.set-bg {
+  height: 250px;
+  background-size: cover !important;
+  background-position: center !important;
+  border-radius: 5px 5px 0 0;
+  transition: transform 0.5s ease;
+}
+
+.blog__item:hover .blog__item__pic.set-bg {
+  transform: scale(1.03);
+}
+
+.blog__item {
+  margin-bottom: 30px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.blog__item__text {
+  padding: 20px;
+  background-color: #fff;
+}
+
+.blog__item__text h5 {
+  margin-top: 10px;
+  margin-bottom: 15px;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.blog__item__text a {
+  display: inline-block;
+  color: #e53637;
+  font-weight: 600;
+}
+
+.blog__item__text a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 767px) {
+  .blog__item__pic.set-bg {
+    height: 200px;
+  }
+}
+
+/* Blog breadcrumb section improvements */
+.breadcrumb-blog.set-bg {
+  height: 350px;
+  background-position: center !important;
+  background-size: cover !important;
+  position: relative;
+}
+
+.breadcrumb-blog::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.breadcrumb-blog h2 {
+  color: #ffffff;
+  font-size: 48px;
+  font-weight: 700;
+  position: relative;
+  z-index: 1;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+@media (max-width: 767px) {
+  .breadcrumb-blog.set-bg {
+    height: 250px;
+  }
+  
+  .breadcrumb-blog h2 {
+    font-size: 32px;
+  }
+}
+
+/* New Header Styling */
+.header__top-bar {
+  background-color: #111111;
+  color: #ffffff;
+  padding: 8px 0;
+  font-size: 13px;
+}
+
+.header__top-bar .phone-number {
+  font-weight: 500;
+}
+
+.header__top-bar .announcement {
+  font-weight: 400;
+}
+
+.header__middle {
+  padding: 15px 0 5px;
+}
+
+.social-container {
+  margin-bottom: 5px;
+}
+
+.social-icons {
+  text-align: center;
+}
+
+.social-icons a {
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 16px;
+  color: #111111;
+  transition: all 0.3s;
+}
+
+.social-icons a:hover {
+  color: #e53637;
+}
+
+.text-logo {
+  margin: 0 auto;
+  text-align: center;
+}
+
+.text-logo h1 {
+  font-size: 28px;
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 20px;
+}
+
+.text-logo .dot {
+  color: #e53637;
+  font-size: 30px;
+}
+
+/* Navigation and header fixes */
+.main-navigation {
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #e5e5e5;
+  padding: 15px 0;
+  position: relative;
+}
+
+.header__menu ul {
+  display: flex;
+  flex-wrap: nowrap;
+  margin-bottom: 0;
+  padding-left: 0;
+  white-space: nowrap;
+  overflow-x: auto;
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.header__menu ul::-webkit-scrollbar {
+  display: none;
+}
+
+.header__menu ul li {
+  list-style: none;
+  margin-right: 15px;
+  position: relative;
+}
+
+.header__menu ul li.active a {
+  color: #111111;
+  position: relative;
+}
+
+.header__menu ul li.active a:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -2px;
+  width: 100%;
+  height: 2px;
+  background-color: #111111;
+}
+
+.header__menu ul li a {
+  font-size: 12px;
+  color: #111111;
+  font-weight: 500;
+  transition: all 0.3s;
+  text-transform: uppercase;
+  display: block;
+  padding: 5px 0;
+}
+
+.header__menu ul li a:hover {
+  color: #e53637;
+}
+
+/* Dropdown styles */
+.header__menu ul li .dropdown {
+  position: absolute;
+  left: 0;
+  top: 100%;
+  width: 180px;
+  background: #ffffff;
+  display: none;
+  z-index: 9;
+  padding: 10px 0;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  margin-top: 5px;
+}
+
+.header__menu ul li:hover > .dropdown {
+  display: block;
+}
+
+.header__menu ul li .dropdown li {
+  margin-right: 0;
+  display: block;
+}
+
+.header__menu ul li .dropdown li a {
+  font-size: 12px;
+  color: #111111;
+  font-weight: 400;
+  padding: 8px 20px;
+  text-transform: capitalize;
+  text-align: left;
+}
+
+.header__menu ul li .dropdown li a:hover {
+  color: #e53637;
+}
+
+.header__menu ul li .dropdown li a:after {
+  display: none;
+}
+
+/* Mobile menu styles */
+.canvas__open {
+  display: none;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 22px;
+  color: #111111;
+  cursor: pointer;
+}
+
+.offcanvas-menu-wrapper {
+  width: 300px;
+  position: fixed;
+  left: -300px;
+  top: 0;
+  background: #ffffff;
+  height: 100%;
+  overflow-y: auto;
+  z-index: 9999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.offcanvas-menu-wrapper.active {
+  left: 0;
+  opacity: 1;
+  visibility: visible;
+}
+
+.offcanvas-menu-overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  z-index: 999;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+}
+
+.offcanvas-menu-overlay.active {
+  opacity: 1;
+  visibility: visible;
+}
+
+.offcanvas__close {
+  position: absolute;
+  right: 25px;
+  top: 25px;
+  font-size: 25px;
+  color: #111111;
+  cursor: pointer;
+}
+
+.offcanvas__logo {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.offcanvas__logo h2 {
+  font-size: 24px;
+  font-weight: 700;
+  text-transform: lowercase;
+  letter-spacing: 0.5px;
+}
+
+.offcanvas__logo .dot {
+  color: #e53637;
+  font-size: 28px;
+}
+
+.offcanvas-top-bar {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.offcanvas__nav__option {
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.offcanvas__nav__option a {
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 20px;
+  color: #111111;
+  position: relative;
+}
+
+.offcanvas__nav__option a span {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 16px;
+  height: 16px;
+  background: #e53637;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: center;
+}
+
+.mobile-menu {
+  margin-bottom: 30px;
+}
+
+.mobile-menu ul {
+  list-style: none;
+  padding-left: 0;
+}
+
+.mobile-menu ul li {
+  position: relative;
+  border-bottom: 1px solid #f2f2f2;
+}
+
+.mobile-menu ul li:last-child {
+  border-bottom: none;
+}
+
+.mobile-menu ul li a {
+  display: block;
+  padding: 12px 0;
+  font-size: 14px;
+  color: #111111;
+  text-transform: uppercase;
+  font-weight: 500;
+}
+
+.mobile-menu ul li .dropdown {
+  position: static;
+  display: none;
+  width: 100%;
+  background: transparent;
+  box-shadow: none;
+  padding: 0 0 10px 15px;
+}
+
+.mobile-menu ul li.active > a {
+  color: #e53637;
+}
+
+.offcanvas__social {
+  text-align: center;
+  margin-top: auto;
+}
+
+.offcanvas__social a {
+  display: inline-block;
+  margin: 0 10px;
+  font-size: 16px;
+  color: #111111;
+  transition: all 0.3s;
+}
+
+.offcanvas__social a:hover {
+  color: #e53637;
+}
+
+/* Mobile header buttons */
+.mobile-header-buttons {
+  display: none;
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.mobile-header-buttons .canvas__open {
+  display: inline-block;
+  position: relative;
+  right: auto;
+  top: auto;
+  transform: none;
+  margin-right: 15px;
+}
+
+.mobile-cart {
+  display: inline-block;
+  position: relative;
+}
+
+.mobile-cart a {
+  font-size: 20px;
+  color: #111111;
+}
+
+.mobile-cart a span {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  width: 16px;
+  height: 16px;
+  background: #e53637;
+  color: #ffffff;
+  border-radius: 50%;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 16px;
+  text-align: center;
+}
+
+/* Update responsive styles */
+@media (max-width: 991px) {
+  .canvas__open {
+    display: none; /* Hide the original menu button */
+  }
+
+  .mobile-header-buttons {
+    display: flex;
+    align-items: center;
+  }
+  
+  .header__menu {
+    display: none;
+  }
+  
+  .header__nav__option {
+    display: none;
+  }
+  
+  .main-navigation {
+    padding: 20px 0;
+  }
+}
+
+@media (max-width: 768px) {
+  .header__top-bar .announcement {
+    display: none;
+  }
+  
+  .text-logo h1 {
+    margin-bottom: 10px;
+    font-size: 24px;
+  }
+}
+
+/* Fix missing header nav option style */
+.header__nav__option {
+  text-align: right;
+}
+
+.header__nav__option a {
+  display: inline-block;
+  margin-left: 20px;
+  font-size: 18px;
+  color: #111111;
+  transition: all 0.3s;
+  position: relative;
+}
+
+.header__nav__option a:hover {
+  color: #e53637;
+} 

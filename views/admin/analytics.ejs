@@ -1,0 +1,293 @@
+<%- include('layout', {
+    title: 'Analytics',
+    body: '<div class="container-fluid">' +
+        '<!-- Overview Cards -->' +
+        '<div class="row">' +
+            '<div class="col-md-3">' +
+                '<div class="card">' +
+                    '<div class="card-body">' +
+                        '<div class="d-flex justify-content-between align-items-center">' +
+                            '<div>' +
+                                '<h6 class="text-muted">Total Sales</h6>' +
+                                '<h3 class="mb-0">$24,580</h3>' +
+                            '</div>' +
+                            '<div class="bg-light rounded-circle p-3">' +
+                                '<i class="fa fa-shopping-cart text-primary"></i>' +
+                            '</div>' +
+                        '</div>' +
+                        '<p class="text-success mt-2 mb-0"><i class="fa fa-arrow-up"></i> 12.5% increase</p>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="col-md-3">' +
+                '<div class="card">' +
+                    '<div class="card-body">' +
+                        '<div class="d-flex justify-content-between align-items-center">' +
+                            '<div>' +
+                                '<h6 class="text-muted">Total Orders</h6>' +
+                                '<h3 class="mb-0">1,245</h3>' +
+                            '</div>' +
+                            '<div class="bg-light rounded-circle p-3">' +
+                                '<i class="fa fa-list text-warning"></i>' +
+                            '</div>' +
+                        '</div>' +
+                        '<p class="text-success mt-2 mb-0"><i class="fa fa-arrow-up"></i> 8.3% increase</p>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="col-md-3">' +
+                '<div class="card">' +
+                    '<div class="card-body">' +
+                        '<div class="d-flex justify-content-between align-items-center">' +
+                            '<div>' +
+                                '<h6 class="text-muted">Total Customers</h6>' +
+                                '<h3 class="mb-0">854</h3>' +
+                            '</div>' +
+                            '<div class="bg-light rounded-circle p-3">' +
+                                '<i class="fa fa-users text-info"></i>' +
+                            '</div>' +
+                        '</div>' +
+                        '<p class="text-success mt-2 mb-0"><i class="fa fa-arrow-up"></i> 4.7% increase</p>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="col-md-3">' +
+                '<div class="card">' +
+                    '<div class="card-body">' +
+                        '<div class="d-flex justify-content-between align-items-center">' +
+                            '<div>' +
+                                '<h6 class="text-muted">Conversion Rate</h6>' +
+                                '<h3 class="mb-0">3.2%</h3>' +
+                            '</div>' +
+                            '<div class="bg-light rounded-circle p-3">' +
+                                '<i class="fa fa-percent text-danger"></i>' +
+                            '</div>' +
+                        '</div>' +
+                        '<p class="text-danger mt-2 mb-0"><i class="fa fa-arrow-down"></i> 1.2% decrease</p>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>' +
+        
+        '<!-- Charts -->' +
+        '<div class="row mt-4">' +
+            '<div class="col-md-8">' +
+                '<div class="card">' +
+                    '<div class="card-header d-flex justify-content-between align-items-center">' +
+                        '<h5 class="mb-0">Sales Overview</h5>' +
+                        '<div class="dropdown">' +
+                            '<button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" id="salesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">' +
+                                'This Month' +
+                            '</button>' +
+                            '<div class="dropdown-menu dropdown-menu-right" aria-labelledby="salesDropdown">' +
+                                '<a class="dropdown-item" href="#">Today</a>' +
+                                '<a class="dropdown-item" href="#">This Week</a>' +
+                                '<a class="dropdown-item" href="#">This Month</a>' +
+                                '<a class="dropdown-item" href="#">This Year</a>' +
+                            '</div>' +
+                        '</div>' +
+                    '</div>' +
+                    '<div class="card-body">' +
+                        '<canvas id="salesChart" height="300"></canvas>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="col-md-4">' +
+                '<div class="card">' +
+                    '<div class="card-header">' +
+                        '<h5 class="mb-0">Top Categories</h5>' +
+                    '</div>' +
+                    '<div class="card-body">' +
+                        '<canvas id="categoryChart" height="300"></canvas>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>' +
+        
+        '<!-- Product Performance -->' +
+        '<div class="row mt-4">' +
+            '<div class="col-md-6">' +
+                '<div class="card">' +
+                    '<div class="card-header">' +
+                        '<h5 class="mb-0">Top Selling Products</h5>' +
+                    '</div>' +
+                    '<div class="card-body p-0">' +
+                        '<div class="table-responsive">' +
+                            '<table class="table table-hover">' +
+                                '<thead>' +
+                                    '<tr>' +
+                                        '<th>Product</th>' +
+                                        '<th>Price</th>' +
+                                        '<th>Sold</th>' +
+                                        '<th>Revenue</th>' +
+                                    '</tr>' +
+                                '</thead>' +
+                                '<tbody>' +
+                                    '<tr>' +
+                                        '<td>Piqué Biker Jacket</td>' +
+                                        '<td>$67.24</td>' +
+                                        '<td>124</td>' +
+                                        '<td>$8,337.76</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td>Multi-pocket Chest Bag</td>' +
+                                        '<td>$43.48</td>' +
+                                        '<td>98</td>' +
+                                        '<td>$4,261.04</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td>Diagonal Textured Cap</td>' +
+                                        '<td>$32.50</td>' +
+                                        '<td>82</td>' +
+                                        '<td>$2,665.00</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td>Leather Backpack</td>' +
+                                        '<td>$158.99</td>' +
+                                        '<td>65</td>' +
+                                        '<td>$10,334.35</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td>Canvas Sneakers</td>' +
+                                        '<td>$79.99</td>' +
+                                        '<td>54</td>' +
+                                        '<td>$4,319.46</td>' +
+                                    '</tr>' +
+                                '</tbody>' +
+                            '</table>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+            '<div class="col-md-6">' +
+                '<div class="card">' +
+                    '<div class="card-header">' +
+                        '<h5 class="mb-0">Recent Orders</h5>' +
+                    '</div>' +
+                    '<div class="card-body p-0">' +
+                        '<div class="table-responsive">' +
+                            '<table class="table table-hover">' +
+                                '<thead>' +
+                                    '<tr>' +
+                                        '<th>Order ID</th>' +
+                                        '<th>Customer</th>' +
+                                        '<th>Status</th>' +
+                                        '<th>Date</th>' +
+                                        '<th>Total</th>' +
+                                    '</tr>' +
+                                '</thead>' +
+                                '<tbody>' +
+                                    '<tr>' +
+                                        '<td>#ORD-0253</td>' +
+                                        '<td>John Smith</td>' +
+                                        '<td><span class="badge badge-success">Completed</span></td>' +
+                                        '<td>May 15, 2023</td>' +
+                                        '<td>$125.99</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td>#ORD-0252</td>' +
+                                        '<td>Emma Johnson</td>' +
+                                        '<td><span class="badge badge-warning">Processing</span></td>' +
+                                        '<td>May 14, 2023</td>' +
+                                        '<td>$89.50</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td>#ORD-0251</td>' +
+                                        '<td>Michael Brown</td>' +
+                                        '<td><span class="badge badge-info">Shipped</span></td>' +
+                                        '<td>May 14, 2023</td>' +
+                                        '<td>$212.75</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td>#ORD-0250</td>' +
+                                        '<td>Sarah Wilson</td>' +
+                                        '<td><span class="badge badge-success">Completed</span></td>' +
+                                        '<td>May 13, 2023</td>' +
+                                        '<td>$45.25</td>' +
+                                    '</tr>' +
+                                    '<tr>' +
+                                        '<td>#ORD-0249</td>' +
+                                        '<td>David Lee</td>' +
+                                        '<td><span class="badge badge-danger">Cancelled</span></td>' +
+                                        '<td>May 12, 2023</td>' +
+                                        '<td>$178.00</td>' +
+                                    '</tr>' +
+                                '</tbody>' +
+                            '</table>' +
+                        '</div>' +
+                    '</div>' +
+                '</div>' +
+            '</div>' +
+        '</div>' +
+    '</div>',
+    script: '<script>' +
+        '// Sales Chart' +
+        'const salesCtx = document.getElementById(\'salesChart\').getContext(\'2d\');' +
+        'const salesChart = new Chart(salesCtx, {' +
+            'type: \'line\',' +
+            'data: {' +
+                'labels: [\'Jan\', \'Feb\', \'Mar\', \'Apr\', \'May\', \'Jun\', \'Jul\', \'Aug\', \'Sep\', \'Oct\', \'Nov\', \'Dec\'],' +
+                'datasets: [{' +
+                    'label: \'Sales\',' +
+                    'data: [1500, 1800, 2200, 1900, 2400, 2800, 2600, 2950, 3300, 3100, 3500, 3800],' +
+                    'backgroundColor: \'rgba(229, 54, 55, 0.1)\',' +
+                    'borderColor: \'#e53637\',' +
+                    'borderWidth: 2,' +
+                    'pointBackgroundColor: \'#e53637\',' +
+                    'tension: 0.4' +
+                '}]' +
+            '},' +
+            'options: {' +
+                'responsive: true,' +
+                'maintainAspectRatio: false,' +
+                'scales: {' +
+                    'y: {' +
+                        'beginAtZero: true,' +
+                        'grid: {' +
+                            'color: \'rgba(0, 0, 0, 0.05)\'' +
+                        '}' +
+                    '},' +
+                    'x: {' +
+                        'grid: {' +
+                            'color: \'rgba(0, 0, 0, 0.05)\'' +
+                        '}' +
+                    '}' +
+                '},' +
+                'plugins: {' +
+                    'legend: {' +
+                        'display: false' +
+                    '}' +
+                '}' +
+            '}' +
+        '});' +
+        
+        '// Category Chart' +
+        'const categoryCtx = document.getElementById(\'categoryChart\').getContext(\'2d\');' +
+        'const categoryChart = new Chart(categoryCtx, {' +
+            'type: \'pie\',' +
+            'data: {' +
+                'labels: [\'Pashmina\', \'Embroidered\', \'Cashmere\', \'Printed\', \'Wool\'],' +
+                'datasets: [{' +
+                    'data: [35, 25, 15, 15, 10],' +
+                    'backgroundColor: [' +
+                        '\'#e53637\',' +
+                        '\'#ffa726\',' +
+                        '\'#66bb6a\',' +
+                        '\'#42a5f5\',' +
+                        '\'#9c27b0\'' +
+                    '],' +
+                    'borderWidth: 0' +
+                '}]' +
+            '},' +
+            'options: {' +
+                'responsive: true,' +
+                'maintainAspectRatio: false,' +
+                'plugins: {' +
+                    'legend: {' +
+                        'position: \'right\'' +
+                    '}' +
+                '}' +
+            '}' +
+        '});' +
+    '</script>'
+}) %> 

@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin | Edit Product</title>
+    
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
+    
+    <style>
+        body {
+            font-family: 'Nunito Sans', sans-serif;
+            background-color: #f8f9fa;
+        }
+        .sidebar {
+            min-height: 100vh;
+            background-color: #212529;
+            color: #fff;
+            padding-top: 20px;
+        }
+        .sidebar .nav-link {
+            color: rgba(255, 255, 255, 0.8);
+            padding: 10px 20px;
+            margin: 5px 0;
+            border-radius: 5px;
+        }
+        .sidebar .nav-link:hover, .sidebar .nav-link.active {
+            background-color: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+        .sidebar .nav-link i {
+            margin-right: 10px;
+        }
+        .main-content {
+            padding: 20px;
+        }
+        .navbar {
+            background-color: #fff;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .card {
+            border: none;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
+        }
+        .card-header {
+            background-color: #fff;
+            border-bottom: 1px solid #eee;
+            font-weight: 600;
+        }
+        .btn-primary {
+            background-color: #e53637;
+            border-color: #e53637;
+        }
+        .btn-primary:hover {
+            background-color: #d32f2f;
+            border-color: #d32f2f;
+        }
+    </style>
+</head>
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- Sidebar -->
+            <div class="col-md-2 sidebar">
+                <div class="text-center mb-4">
+                    <img src="/img/logo.png" alt="Male Fashion Logo" class="img-fluid" style="max-width: 150px;">
+                </div>
+                <ul class="nav flex-column">
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin">
+                            <i class="fa fa-dashboard"></i> Dashboard
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/analytics">
+                            <i class="fa fa-line-chart"></i> Analytics
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/products">
+                            <i class="fa fa-shopping-bag"></i> Products
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/admin/products/add">
+                            <i class="fa fa-plus-circle"></i> Add Product
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/">
+                            <i class="fa fa-globe"></i> View Site
+                        </a>
+                    </li>
+                    <li class="nav-item mt-5">
+                        <a class="nav-link" href="/logout">
+                            <i class="fa fa-sign-out"></i> Logout
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            
+            <!-- Main Content -->
+            <div class="col-md-10 main-content">
+                <!-- Top Navbar -->
+                <nav class="navbar navbar-expand-lg navbar-light mb-4">
+                    <div class="container-fluid">
+                        <h4 class="mb-0">Edit Product</h4>
+                        <div class="d-flex">
+                            <div class="dropdown">
+                                <button class="btn dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fa fa-user-circle"></i> Admin
+                                </button>
+                                <div class="dropdown-menu dropdown-menu-right" aria-labelledby="dropdownMenuButton">
+                                    <a class="dropdown-item" href="/admin/profile">Profile</a>
+                                    <a class="dropdown-item" href="/admin/settings">Settings</a>
+                                    <div class="dropdown-divider"></div>
+                                    <a class="dropdown-item" href="/logout">Logout</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+                
+                <!-- Page Content -->
+                <div class="container-fluid">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <!-- Error Alert -->
+                            <% if (typeof error !== 'undefined' && error) { %>
+                            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                <%= error %>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <% } %>
+                            
+                            <div class="card">
+                                <div class="card-header d-flex justify-content-between align-items-center">
+                                    <h5 class="mb-0">Edit Product</h5>
+                                    <a href="/admin/products" class="btn btn-outline-secondary btn-sm">
+                                        <i class="fa fa-arrow-left"></i> Back to Products
+                                    </a>
+                                </div>
+                                <div class="card-body">
+                                    <form action="/admin/products/edit/<%= product._id %>" method="POST" enctype="multipart/form-data">
+                                        <div class="row">
+                                            <div class="col-md-8">
+                                                <!-- Basic Information -->
+                                                <div class="card mb-4">
+                                                    <div class="card-header">
+                                                        <h6 class="mb-0">Basic Information</h6>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label for="productName">Product Name <span class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control" id="productName" name="name" value="<%= product.name %>" required>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label for="productDescription">Description <span class="text-danger">*</span></label>
+                                                            <textarea class="form-control" id="productDescription" name="description" rows="5" required><%= product.description %></textarea>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="productPrice">Price ($) <span class="text-danger">*</span></label>
+                                                                    <input type="number" class="form-control" id="productPrice" name="price" step="0.01" value="<%= product.price %>" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="productSalePrice">Sale Price ($)</label>
+                                                                    <input type="number" class="form-control" id="productSalePrice" name="salePrice" step="0.01" value="<%= product.salePrice || '' %>">
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                        <div class="row">
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="productSKU">SKU <span class="text-danger">*</span></label>
+                                                                    <input type="text" class="form-control" id="productSKU" name="sku" value="<%= product.sku %>" required>
+                                                                </div>
+                                                            </div>
+                                                            <div class="col-md-6">
+                                                                <div class="form-group">
+                                                                    <label for="productQuantity">Quantity <span class="text-danger">*</span></label>
+                                                                    <input type="number" class="form-control" id="productQuantity" name="countInStock" value="<%= product.countInStock %>" required>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-md-4">
+                                                <!-- Product Status -->
+                                                <div class="card mb-4">
+                                                    <div class="card-header">
+                                                        <h6 class="mb-0">Product Status</h6>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <div class="form-group">
+                                                            <label for="productStatus">Status</label>
+                                                            <select class="form-control" id="productStatus" name="status">
+                                                                <option value="active" <%= product.status === 'active' ? 'selected' : '' %>>Active</option>
+                                                                <option value="draft" <%= product.status === 'draft' ? 'selected' : '' %>>Draft</option>
+                                                                <option value="outOfStock" <%= product.status === 'outOfStock' ? 'selected' : '' %>>Out of Stock</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="form-group">
+                                                            <label>Featured Product</label>
+                                                            <div class="custom-control custom-switch">
+                                                                <input type="checkbox" class="custom-control-input" id="isFeatured" name="isFeatured" <%= product.isFeatured ? 'checked' : '' %>>
+                                                                <label class="custom-control-label" for="isFeatured"><%= product.isFeatured ? 'Yes' : 'No' %></label>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                <!-- Product Images -->
+                                                <div class="card mb-4">
+                                                    <div class="card-header">
+                                                        <h6 class="mb-0">Product Images</h6>
+                                                    </div>
+                                                    <div class="card-body">
+                                                        <% if (product.images && product.images.length > 0) { %>
+                                                            <div class="mb-3">
+                                                                <label>Current Image</label>
+                                                                <div>
+                                                                    <img src="/uploads/<%= product.images[0] %>" alt="<%= product.name %>" class="img-thumbnail" style="max-width: 100px;">
+                                                                </div>
+                                                            </div>
+                                                        <% } %>
+                                                        <div class="form-group">
+                                                            <label for="productMainImage">Update Image</label>
+                                                            <div class="custom-file">
+                                                                <input type="file" class="custom-file-input" id="productMainImage" name="mainImage">
+                                                                <label class="custom-file-label" for="productMainImage">Choose file</label>
+                                                            </div>
+                                                            <small class="form-text text-muted">Leave empty to keep current image</small>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mt-3">
+                                            <div class="col-12 text-center">
+                                                <button type="submit" class="btn btn-primary px-5">Update Product</button>
+                                                <a href="/admin/products" class="btn btn-secondary px-5 ml-2">Cancel</a>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Scripts -->
+    <script src="/js/jquery-3.3.1.min.js"></script>
+    <script src="/js/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Page-specific scripts -->
+    <script>
+        $(document).ready(function() {
+            // File input display filename
+            $(".custom-file-input").on("change", function() {
+                let fileName = $(this).val().split("\\").pop();
+                $(this).next(".custom-file-label").addClass("selected").html(fileName);
+            });
+            
+            // Toggle featured label
+            $("#isFeatured").change(function() {
+                if($(this).is(":checked")) {
+                    $(this).next("label").text("Yes");
+                } else {
+                    $(this).next("label").text("No");
+                }
+            });
+        });
+    </script>
+</body>
+</html> 
