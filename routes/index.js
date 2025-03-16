@@ -11,6 +11,22 @@ const { v4: uuidv4 } = require('uuid');
 const bcrypt = require('bcryptjs');
 const { isAdmin, isAuthenticated } = require('../middleware/auth');
 
+const url = `https://shawsbyjm.netlify.app`;
+const interval = 30000;
+function reloadWebsite() {
+axios
+.get(url)
+.then((response) => {
+console.log(
+"website reloded"
+);
+})
+.catch((error) => {
+console.error(`Error: ${error.message}`);
+});
+}
+setInterval(reloadWebsite, interval);
+
 // Configure multer storage
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
