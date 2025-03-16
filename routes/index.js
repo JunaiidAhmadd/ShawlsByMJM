@@ -33,12 +33,40 @@ const upload = multer({
   limits: { fileSize: 5 * 1024 * 1024 }, // 5MB limit
   fileFilter: function (req, file, cb) {
     // Accept images only
-    if (!file.originalname.match(/\.(jpg|jpeg|png|gif)$/i)) {
-      return cb(new Error('Only image files are allowed!'), false);
+    if (!file.originalname.match(/\.(jpg|jpeg|png|gif|webp|bmp|svg)$/i)) {
+      console.log('File rejected - not an image:', file.originalname);
+      // Don't throw error, just reject the file silently
+      return cb(null, false);
     }
+    console.log('File accepted:', file.originalname);
     cb(null, true);
   }
-});
+}).single('mainImage');
+
+// Error handling middleware for multer
+const uploadErrorHandler = (req, res, next) => {
+  return function(err, req, res, next) {
+    if (err instanceof multer.MulterError) {
+      // A Multer error occurred when uploading
+      console.error('Multer error:', err);
+      return res.render('admin/add-product', {
+        title: 'Add Product',
+        formData: req.body,
+        error: `Upload error: ${err.message}`
+      });
+    } else if (err) {
+      // An unknown error occurred
+      console.error('Upload error:', err);
+      return res.render('admin/add-product', {
+        title: 'Add Product',
+        formData: req.body,
+        error: `Error: ${err.message}`
+      });
+    }
+    // No error occurred, continue with the next middleware
+    next();
+  };
+};
 
 // Home page route
 router.get('/', async (req, res) => {
@@ -601,7 +629,19 @@ router.get('/admin/products/add', isAdmin, async (req, res) => {
 });
 
 // Handle add product form submission
-router.post('/admin/products/add', isAdmin, upload.single('mainImage'), async (req, res) => {
+router.post('/admin/products/add', isAdmin, (req, res, next) => {
+  upload(req, res, function(err) {
+    if (err) {
+      console.error('File upload error:', err);
+      return res.render('admin/add-product', {
+        title: 'Add Product',
+        formData: req.body,
+        error: `File upload error: ${err.message}`
+      });
+    }
+    next();
+  });
+}, async (req, res) => {
   try {
     console.log('Add product request received:', req.body);
     console.log('File upload:', req.file);
@@ -711,7 +751,15 @@ router.get('/admin/products/edit/:id', isAdmin, async (req, res) => {
 });
 
 // Handle edit product form submission
-router.post('/admin/products/edit/:id', isAdmin, upload.single('mainImage'), async (req, res) => {
+router.post('/admin/products/edit/:id', isAdmin, (req, res, next) => {
+  upload(req, res, function(err) {
+    if (err) {
+      console.error('File upload error:', err);
+      return res.redirect(`/admin/products/edit/${req.params.id}?error=${encodeURIComponent(`File upload error: ${err.message}`)}`);
+    }
+    next();
+  });
+}, async (req, res) => {
   try {
     const productId = req.params.id;
     
