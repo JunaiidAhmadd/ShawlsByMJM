@@ -3,9 +3,11 @@
   "version": "1.0.0",
   "description": "Male Fashion E-commerce Website Backend",
   "main": "server.js",
+  "engines": {
+    "node": ">=14.0.0"
+  },
   "scripts": {
-    "build" : "netlify deploy --prod",
-    // "start": "node server.js",
+    "start": "node server.js",
     "dev": "nodemon server.js"
   },
   "dependencies": {
