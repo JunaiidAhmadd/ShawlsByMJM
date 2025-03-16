@@ -39,6 +39,7 @@ const upload = multer({
     cb(null, true);
   }
 });
+
 // Home page route
 router.get('/', async (req, res) => {
   try {
@@ -608,6 +609,7 @@ router.post('/admin/products/add', isAdmin, upload.single('mainImage'), async (r
     // Extract the file path if an image was uploaded
     let imagePath = '/img/product/no-image.jpg'; // Default image
     if (req.file) {
+      // Make path relative to public directory
       imagePath = '/uploads/' + req.file.filename;
       console.log('Image path set to:', imagePath);
     }
@@ -663,7 +665,9 @@ router.post('/admin/products/add', isAdmin, upload.single('mainImage'), async (r
       status: normalizedStatus, // Use normalized status
       isFeatured: isFeatured === 'on' || isFeatured === true,
       image: imagePath,
-      images: [imagePath] // Also store the image in the images array for consistency
+      images: [imagePath], // Also store the image in the images array for consistency
+      rating: 0,
+      numReviews: 0
     });
     
     console.log('Saving product:', product);
